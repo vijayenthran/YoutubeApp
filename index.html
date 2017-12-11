@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>YouTube App</title>
+  <link href="index.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="resp.css" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Bangers|Kaushan+Script|Pacifico|Tangerine" rel="stylesheet">
+</head>
+<body>
+  <main>
+    <header><h1>Search your Favourite Youtube Videos</h1></header>
+    <form>
+      <fieldset>
+        <legend>Enter search Term</legend>
+        <p>
+          <input type='text' class='form-input' placeholder="Search:Ex dragonballz">
+        </p>
+        <p>
+          <input type='Submit' value="Search" class='form-submit-Btn'>
+        </p>
+        <p class='Next-Page remove-display'>
+          <input type='button' value="Next-Page" class='form-prev-page-Btn'>
+        </p>
+        <p class='Previous-Page remove-display'>
+          <input type='button' value="Previous-Page" class='form-next-page-Btn'>
+        </p>
+      </fieldset>
+    </form>
+    <section class='videos'></section>
+    <section class='outerDiv remove-display'>
+      <div class="videowrapper remove-display">
+        <div class='loader remove-display'></div>
+        <iframe src="" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </section>
+    <section class='no-result remove-display'><p> Sorry, There are no Results, Please Enter Some Other Text</p></section>
+    <section class='error remove-display'><p> Sorry, Something Went Wrong Please Contact the, Admin</p></section>
+  </main>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+  <script src="index.js"></script>
+</body>
+</html>
+
+<!-- // Study On load in Javascript
+  //Read about the loader
+ -->
