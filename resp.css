@@ -21,7 +21,6 @@ header, form {
 }
 
 .videowrapper {
-	margin-top: 50%;
 	width: 100%;
 	height : auto;
 	padding-bottom: 60%;
@@ -74,13 +73,12 @@ header, form {
 	.videowrapper {
 		width: 80%;
 		height : auto;
-		padding-bottom: 50%;
-		margin-top: 20%;
+		padding-bottom: 35%;
 	}
 	.loader{
 		position: absolute;
-		top: 40%;
-		left: 50%;
+		top: 38%;
+		left: 40%;
 		width: 100px;
 		height: 100px;
 	}

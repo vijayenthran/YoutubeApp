@@ -16,27 +16,17 @@ let youtubePlay = (function(){
     type: 'GET'
   };
 
-// handle display of Vidoes when Prev Page button is clicked
-function prevPage () {
- $('.Previous-Page').on('click', 'input', function(event){
-  event.preventDefault();
-  let obj = {prevPageToken:nextPageToken};
-  ajaxCall(obj);
-  return;
-});
-}
+  function prevPage () {
+   let obj = {prevPageToken:nextPageToken};
+   callYoutubeApi(obj);
+   return;
+ }
 
 // handle display of Vidoes when Next Page button is clicked
 function nextPage () {
-  $('.Next-Page').removeClass('remove-display');
   delete config.data.q;
-  $('.Next-Page').on('click', 'input', function(event){
-    event.preventDefault();
-    $('.Previous-Page').removeClass('remove-display');
-    let obj = {nextPageToken:nextPageToken};
-    ajaxCall(obj);
-  });
-  prevPage();
+  let obj = {nextPageToken:nextPageToken};
+  callYoutubeApi(obj);
   return;
 }
 
@@ -59,7 +49,6 @@ function handleSuccess (success) {
   prevPageToken = success.prevPageToken;
   thumbnails.find('img').remove();
   thumbnails.append(element);
-  nextPage();
   if(success.pageInfo.totalResults === 0){
     handleNoResult();
   }
@@ -75,7 +64,7 @@ function handleFailure (failure) {
 }
 
 // The only function Expression expressed out of this Module
-let ajaxCall = function(search){
+let callYoutubeApi = function(search){
   if(search.searchKeyword){
     config.data.q = search.searchKeyword;
   }else if(search.nextPageToken){
@@ -93,9 +82,30 @@ let ajaxCall = function(search){
 };
 
 return {
-  serverCall : ajaxCall
+  serverCall : callYoutubeApi,
+  nextPageCall : nextPage,
+  prevPageCall  : prevPage
 };
 })();
+
+// Handle the next page click
+function handleNextPageClick() {
+ $('.Next-Page').removeClass('remove-display');
+ $('.Next-Page').on('click', 'input', function(event){
+  event.preventDefault();
+  $('.Previous-Page').removeClass('remove-display');
+  youtubePlay.nextPageCall();
+});
+ handlePrevPageClick();
+}
+
+// Handle prev page click
+function handlePrevPageClick() {
+  $('.Previous-Page').on('click', 'input', function(event){
+    event.preventDefault();
+    youtubePlay.prevPageCall();
+  });
+}
 
 // Close the Video that is playing on the Iframe
 function closePlayingVideo(){
@@ -124,11 +134,11 @@ function thumbnailClick(){
 function fetchVideos(){
   $('form').submit(function(event){
     $('.Previous-Page').addClass('remove-display');
-    $('.Next-Page').addClass('remove-display');
     let searchkey = $('.form-input').val();
     event.preventDefault();
     youtubePlay.serverCall({searchKeyword : searchkey});
     $('.form-input').val('');
+    handleNextPageClick();
   });
   thumbnailClick();
   return;
